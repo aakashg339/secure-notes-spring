@@ -20,6 +20,7 @@ public class SecurityConfig {
             requests
                 .requestMatchers("/contact").permitAll()
                 .requestMatchers("/public/**").permitAll()
+                .requestMatchers("/admin").denyAll()
                 .anyRequest().authenticated()
         );
         // http.formLogin(withDefaults());
