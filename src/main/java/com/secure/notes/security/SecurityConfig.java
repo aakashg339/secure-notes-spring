@@ -19,6 +19,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((requests) -> 
             requests
                 .requestMatchers("/contact").permitAll()
+                .requestMatchers("/public/**").permitAll()
                 .anyRequest().authenticated()
         );
         // http.formLogin(withDefaults());
