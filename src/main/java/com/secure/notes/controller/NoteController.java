@@ -41,7 +41,7 @@ public class NoteController {
         return noteService.getNotesForUser(username);
     }
 
-    @PutMapping("/{noteid}")
+    @PutMapping("/{noteId}")
     public Note updateNote(@PathVariable Long noteId, @RequestBody String content, @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
         System.out.println("USER DETAILS: " + username);
@@ -49,7 +49,7 @@ public class NoteController {
     }
     
 
-    @DeleteMapping
+    @DeleteMapping("/{noteId}")
     public void deleteNote(@PathVariable Long noteId, @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
         noteService.deleteNoteForUser(noteId, username);

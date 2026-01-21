@@ -9,7 +9,10 @@ import com.secure.notes.models.Note;
 import com.secure.notes.repositories.NoteRepository;
 import com.secure.notes.sevices.NoteService;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class NoteServiceImpl implements NoteService {
 
     @Autowired
