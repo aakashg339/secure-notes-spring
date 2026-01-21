@@ -2,6 +2,7 @@ package com.secure.notes.security;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -15,16 +16,13 @@ import org.springframework.context.annotation.Configuration;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) {
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> 
             requests
-                .requestMatchers("/contact").permitAll()
-                .requestMatchers("/public/**").permitAll()
-                .requestMatchers("/admin").denyAll()
-                .requestMatchers("/admin/**").denyAll()
                 .anyRequest().authenticated()
         );
         // http.formLogin(withDefaults());
+        http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement(session -> 
             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
