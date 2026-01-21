@@ -16,13 +16,9 @@ import org.springframework.context.annotation.Configuration;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) {
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> 
             requests
-                .requestMatchers("/contact").permitAll()
-                .requestMatchers("/public/**").permitAll()
-                .requestMatchers("/admin").denyAll()
-                .requestMatchers("/admin/**").denyAll()
                 .anyRequest().authenticated()
         );
         // http.formLogin(withDefaults());
