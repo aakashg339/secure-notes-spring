@@ -11,6 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,8 +36,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager();
+    public UserDetailsService userDetailsService(DataSource dataSource) {
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
         
         if(!manager.userExists("user1")) {
             manager.createUser(
