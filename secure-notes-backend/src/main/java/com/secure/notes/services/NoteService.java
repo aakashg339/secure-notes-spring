@@ -1,4 +1,4 @@
-package com.secure.notes.sevices;
+package com.secure.notes.services;
 
 import java.util.List;
 

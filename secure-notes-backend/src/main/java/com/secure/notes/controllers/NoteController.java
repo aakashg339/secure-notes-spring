@@ -1,4 +1,4 @@
-package com.secure.notes.controller;
+package com.secure.notes.controllers;
 
 import java.util.List;
 
@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.secure.notes.models.Note;
-import com.secure.notes.sevices.NoteService;
+import com.secure.notes.services.NoteService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
