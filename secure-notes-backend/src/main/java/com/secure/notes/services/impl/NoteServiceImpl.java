@@ -1,4 +1,4 @@
-package com.secure.notes.sevices.impl;
+package com.secure.notes.services.impl;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.secure.notes.models.Note;
 import com.secure.notes.repositories.NoteRepository;
-import com.secure.notes.sevices.NoteService;
+import com.secure.notes.services.NoteService;
 
 import jakarta.transaction.Transactional;
 
