@@ -8,6 +8,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import com.secure.notes.models.AppRole;
 import com.secure.notes.models.Role;
@@ -30,16 +31,22 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> 
+            csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .ignoringRequestMatchers("/api/auth/public/**")
+        );
+        // http.csrf(AbstractHttpConfigurer::disable);
+        
         http.authorizeHttpRequests((requests) -> 
             requests
                 // .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/csrf-token").permitAll()
                 .anyRequest().authenticated()
         );
-        // http.formLogin(withDefaults());
-        http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement(session -> 
             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
+        // http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
         return http.build();
     }
