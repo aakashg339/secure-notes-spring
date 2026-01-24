@@ -8,7 +8,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.secure.notes.models.AppRole;
 import com.secure.notes.models.Role;
@@ -38,8 +37,6 @@ public class SecurityConfig {
         );
         // http.formLogin(withDefaults());
         http.csrf(AbstractHttpConfigurer::disable);
-        http.addFilterBefore(new CustomLoggingFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterAfter(new RequestValidationFilter(), CustomLoggingFilter.class);
         http.sessionManagement(session -> 
             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
