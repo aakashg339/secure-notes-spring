@@ -165,10 +165,8 @@ public class AuthController {
     }
 
     @GetMapping("/username")
-    public ResponseEntity<String> getUsername(@AuthenticationPrincipal UserDetails userDetails) {
-        User user = userService.findByUsername(userDetails.getUsername());
-
-        return ResponseEntity.ok().body(user.getUserName());
+    public String getUsername(@AuthenticationPrincipal UserDetails userDetails) {
+        return (userDetails != null) ? userDetails.getUsername() : "";
     }
 
 }
