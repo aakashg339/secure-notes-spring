@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.secure.notes.models.Note;
 import com.secure.notes.repositories.NoteRepository;
+import com.secure.notes.services.AuditLogService;
 import com.secure.notes.services.NoteService;
 
 import jakarta.transaction.Transactional;
@@ -18,6 +19,9 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     private NoteRepository noteRepository;
 
+    @Autowired
+    private AuditLogService auditLogService;
+    
     @Override
     public Note createNoteForUser(String username, String content) {
         Note note = new Note();
@@ -26,6 +30,8 @@ public class NoteServiceImpl implements NoteService {
         note.setOwnerUsername(username);
         
         Note savedNote = noteRepository.save(note);
+
+        auditLogService.logNoteCreation(username, savedNote);
         
         return savedNote;
     }
@@ -38,13 +44,20 @@ public class NoteServiceImpl implements NoteService {
         note.setContent(content);
         
         Note updatedNote = noteRepository.save(note);
+
+        auditLogService.logNoteUpdate(username, updatedNote);
         
         return updatedNote;
     }
 
     @Override
     public void deleteNoteForUser(Long noteId, String username) {
-        noteRepository.deleteById(noteId);
+        Note note = noteRepository.findById(noteId).orElseThrow(
+            () -> new RuntimeException("Note not found")
+        );
+        
+        auditLogService.logNoteDeletion(username, noteId);
+        noteRepository.delete(note);
     }
 
     @Override
