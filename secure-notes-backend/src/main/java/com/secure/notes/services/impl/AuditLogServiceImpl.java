@@ -1,6 +1,7 @@
 package com.secure.notes.services.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,16 @@ public class AuditLogServiceImpl implements AuditLogService {
         log.setTimestamp(LocalDateTime.now());
 
         auditLogRepository.save(log);
+    }
+
+    @Override
+    public List<AuditLog> getAllAuditLogs() {
+        return auditLogRepository.findAll();
+    }
+
+    @Override
+    public List<AuditLog> getAuditLogsForNoteId(Long id) {
+        return auditLogRepository.findByNoteId(id);
     }
 
 }
