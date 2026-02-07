@@ -10,6 +10,7 @@ import com.secure.notes.repositories.RoleRepository;
 import com.secure.notes.repositories.UserRepository;
 import com.secure.notes.services.TotpService;
 import com.secure.notes.services.UserService;
+import com.secure.notes.util.AuthUtil;
 import com.secure.notes.util.EmailService;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 
